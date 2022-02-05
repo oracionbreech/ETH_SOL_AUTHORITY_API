@@ -1,5 +1,5 @@
 {
-  "name": "online-ordering-api",
+  "name": "sol-flowers-api",
   "version": "1.0.0",
   "description": "Online Ordering API Service",
   "main": "./dist/index.js",

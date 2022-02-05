@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   online-ordering-api:
-    image: sol-flower-api
+    image: sol-flowers-api
     build:
       context: .
       dockerfile: ./Dockerfile
