@@ -1,7 +1,7 @@
 {
   "name": "sol-flowers-api",
   "version": "1.0.0",
-  "description": "Online Ordering API Service",
+  "description": "Sol Flowers API",
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
