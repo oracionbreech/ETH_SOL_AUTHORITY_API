@@ -43,6 +43,7 @@ export let io: Server;
     io.on('connection', () => {
       log.info(`A User connected.`);
     });
+
     server.listen(port, () => log.info('Online ordering service is now running'));
   }
 })();

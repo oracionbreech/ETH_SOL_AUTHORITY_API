@@ -1,15 +1,14 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
-
-import { getMints } from '../../utils/get-mints';
+import { promises as fs } from 'fs';
 
 const getAllFlowers = async (req: Request, res: Response): Promise<any> => {
-  const connectionURL = 'https://api.metaplex.solana.com';
-
   try {
-    const mints = await getMints('8J9W44AfgWFMSwE4iYyZMNCWV9mKqovS5YHiVoKuuA2b', connectionURL);
+    const minted = await fs.readFile('./minted.json');
 
-    return res.status(StatusCodes.OK).json(mints.map((mint) => mint.data));
+    const mintedArray: Array<{ name: string }> = JSON.parse(minted.toString());
+
+    return res.status(StatusCodes.OK).json(mintedArray.slice(0, 3).map((mint) => mint.name.replaceAll('\x00', '')));
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
