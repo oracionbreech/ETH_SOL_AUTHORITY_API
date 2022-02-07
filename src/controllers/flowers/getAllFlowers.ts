@@ -1,14 +1,12 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { promises as fs } from 'fs';
+import Flower from '../../model/flower';
 
 const getAllFlowers = async (req: Request, res: Response): Promise<any> => {
   try {
-    const minted = await fs.readFile('./minted.json');
+    const flowers = await Flower.find();
 
-    const mintedArray: Array<{ name: string }> = JSON.parse(minted.toString());
-
-    return res.status(StatusCodes.OK).json(mintedArray.slice(0, 3).map((mint) => mint.name.replaceAll('\x00', '')));
+    return res.status(StatusCodes.OK).json(flowers);
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }

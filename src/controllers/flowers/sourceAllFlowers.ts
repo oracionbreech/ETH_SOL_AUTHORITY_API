@@ -1,6 +1,8 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { promises as fs } from 'fs';
+
+// Models
+import Flower, { IFlower } from '../../model/flower';
 
 // Utilities
 import { getMints } from '../../utils/get-mints';
@@ -11,13 +13,14 @@ const sourceAllFlowers = async (req: Request, res: Response): Promise<any> => {
   try {
     const mints = await getMints('8J9W44AfgWFMSwE4iYyZMNCWV9mKqovS5YHiVoKuuA2b', connectionURL);
 
-    const mintedNames = mints.map((mint) => ({
-      name: mint.data.name
+    const mintedNames: IFlower[] = mints.map((mint) => ({
+      name: String(mint.data.name).replaceAll('\x00', ''),
+      arweaveURI: String(mint.data.uri).replaceAll('\x00', '')
     }));
 
-    await fs.writeFile('./minted.json', JSON.stringify(mintedNames, null, 4));
+    const createFlowers = await Flower.insertMany(mintedNames);
 
-    return res.status(StatusCodes.OK).json({ message: 'Minted JSON File has been created.' });
+    return res.status(StatusCodes.OK).json(createFlowers);
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
