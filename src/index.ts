@@ -8,6 +8,7 @@ import * as log from './lib/logger';
 import router from './routes';
 
 import { config } from 'dotenv';
+import { MongooseInit } from './services/mongo';
 config();
 /**
  * Online ordering API Service.
@@ -32,6 +33,7 @@ export const server = http.createServer(app);
 export let io: Server;
 
 (async () => {
+  await MongooseInit();
   if (process.env.NODE_ENV !== 'test') {
     io = new Server(server, {
       cors: {
