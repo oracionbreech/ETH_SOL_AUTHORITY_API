@@ -1,8 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { Server } from 'socket.io';
-import http from 'http';
 
 import * as log from './lib/logger';
 import router from './routes';
@@ -28,25 +26,10 @@ app.use(morgan('dev', {}));
 
 app.use(router);
 
-export const server = http.createServer(app);
-
-export let io: Server;
-
 (async () => {
   await MongooseInit();
   if (process.env.NODE_ENV !== 'test') {
-    io = new Server(server, {
-      cors: {
-        origin: ['http://localhost:3000'],
-        methods: ['GET', 'POST']
-      }
-    });
-
-    io.on('connection', () => {
-      log.info(`A User connected.`);
-    });
-
-    server.listen(port, () => log.info('Online ordering service is now running'));
+    app.listen(port, () => log.info('Online ordering service is now running'));
   }
 })();
 
