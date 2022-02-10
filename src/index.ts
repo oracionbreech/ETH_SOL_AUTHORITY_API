@@ -19,7 +19,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://quickmeal.netlify.app']
+    origin: ['http://localhost:3000', 'https://adoring-wilson-eb56c7.netlify.app']
   })
 );
 app.use(express.json());
