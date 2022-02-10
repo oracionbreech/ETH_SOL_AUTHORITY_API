@@ -122,7 +122,7 @@ const findProgramAddress = async (seeds: (Buffer | Uint8Array)[], programId: Pub
   return [result[0].toBase58(), result[1]] as [string, number];
 };
 
-const decodeMetadata = (buffer: Buffer): Metadata => {
+export const decodeMetadata = (buffer: Buffer): Metadata => {
   const metadata = deserializeUnchecked(METADATA_SCHEMA, Metadata, buffer) as Metadata;
 
   metadata.data.name = metadata.data.name.replace(/\0/g, '');
@@ -158,8 +158,8 @@ const extendBorsh = () => {
 
 extendBorsh();
 
-async function getMetadata(pubkey: PublicKey, url: string) {
-  let metadata;
+export async function getMetadata(pubkey: PublicKey, url: string) {
+  let metadata: Metadata;
 
   try {
     const metadataPromise = await fetchMetadataFromPDA(pubkey, url);
@@ -174,7 +174,7 @@ async function getMetadata(pubkey: PublicKey, url: string) {
   return metadata;
 }
 
-async function getMetadataKey(tokenMint: StringPublicKey): Promise<StringPublicKey> {
+export async function getMetadataKey(tokenMint: StringPublicKey): Promise<StringPublicKey> {
   const PROGRAM_IDS = programIds();
 
   return (
