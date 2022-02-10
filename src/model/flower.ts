@@ -17,6 +17,7 @@ export interface IFlower {
   image: string;
   attributes: IFlowerAttributes[];
   creators: IFlowerCreators[];
+  mintTransaction: string;
 }
 
 const Flower = new Schema<IFlower>({
