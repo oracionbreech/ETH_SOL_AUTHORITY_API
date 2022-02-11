@@ -1,7 +1,10 @@
 import { PublicKey } from '@solana/web3.js';
+import axios from 'axios';
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { get } from 'lodash';
 import { SOLANA_RPC_CONNECTION } from '../../constants/connection';
+import { IFlowerAttributes } from '../../model/flower';
 import { decodeMetadata, getMetadataKey } from '../../utils/get-meta';
 
 // Utilities
@@ -24,8 +27,20 @@ const getMintedInfo = async (req: IRequestGetAllFlowersV2, res: Response): Promi
       new PublicKey(decodeMetadata(metadataInfo.data).mint)
     );
 
+    const decodedMetadata = decodeMetadata(metadataInfo.data);
+
+    const { data: arweaveURIData } = await axios.get(decodedMetadata.data.uri);
+
+    const attributes: IFlowerAttributes[] = [...get(arweaveURIData, 'attributes', [])].map(
+      (data): IFlowerAttributes => ({
+        traitType: get(data, 'trait_type', ''),
+        value: get(data, 'value', '')
+      })
+    );
+
     return res.status(StatusCodes.OK).json({
-      ...decodeMetadata(metadataInfo.data),
+      ...decodedMetadata,
+      attributes,
       mintTransaction: mintTransactions.pop()
     });
   } catch (error) {

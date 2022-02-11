@@ -11,7 +11,7 @@ import getMintedInfo from '../controllers/flowers/getMintedInfo';
 
 const FlowerRoutes = router
   .get('/', getAllFlowers)
-  .get('/v2', getAllFlowersV2)
+  .get('/v2/:candyMachineId', getAllFlowersV2)
   .get('/mint-info/:address', getMintedInfo);
 
 export default FlowerRoutes;

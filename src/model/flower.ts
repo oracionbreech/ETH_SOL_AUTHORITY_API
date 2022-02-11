@@ -11,6 +11,7 @@ export interface IFlowerCreators {
 }
 
 export interface IFlower {
+  address: string;
   name: string;
   arweaveURI: string;
   description: string;
@@ -21,12 +22,17 @@ export interface IFlower {
 }
 
 const Flower = new Schema<IFlower>({
+  address: {
+    type: String,
+    unique: true
+  },
   name: String,
   arweaveURI: String,
   description: String,
   image: String,
   attributes: Schema.Types.Array,
-  creators: Schema.Types.Array
+  creators: Schema.Types.Array,
+  mintTransaction: String
 });
 
 Flower.set('timestamps', true);
