@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 // Routes
 import FlowerRoutes from './flowers';
+import NFTRoutes from './nft';
 
 const router = Router();
 
@@ -18,6 +19,6 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
-router.use('/flowers', FlowerRoutes);
+router.use('/flowers', FlowerRoutes).use('/nft', NFTRoutes);
 
 export default router;
