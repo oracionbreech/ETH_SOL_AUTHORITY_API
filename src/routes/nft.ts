@@ -4,7 +4,7 @@ config();
 const router = Router();
 
 // controllers
-import sourceNFT from '../controllers/nft/sourceNFt';
+import sourceNFT from '../controllers/nft/sourceNFT';
 
 const NFTRoutes = router.post('/', sourceNFT);
 
