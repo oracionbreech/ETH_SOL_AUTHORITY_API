@@ -1,5 +1,7 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
+
+// Models
 import NFT from '../../model/NFT';
 
 // Utilities
