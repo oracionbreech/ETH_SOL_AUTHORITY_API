@@ -20,16 +20,12 @@ const sourceNFT = async (req: RequestAllFlowersV2, res: Response): Promise<any> 
       candyMachineId
     });
 
-    /**
-     * @function step skips creating the candy machine record if existing
-     */
-    if (existing)
-      return res.status(StatusCodes.CREATED).json({
-        message: 'Candy machine ID has already been sourced.',
-        candyMachineId
-      });
-
     const mintedAddresses = await getMintAddresses(candyMachineId);
+
+    if (existing.addresses.length === mintedAddresses.length)
+      return res.status(StatusCodes.OK).json({
+        message: 'Nothing new minted.'
+      });
 
     const createNFT = await NFT.create({
       addresses: mintedAddresses,
