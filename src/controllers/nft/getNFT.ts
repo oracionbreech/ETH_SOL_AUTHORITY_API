@@ -1,5 +1,6 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { get } from 'lodash';
 
 // Models
 import NFT from '../../model/NFT';
@@ -10,11 +11,17 @@ interface RequestNFT extends Request {
   params: {
     candyMachineId: string;
   };
+  query: {
+    limit: string;
+    skip: string;
+  };
 }
 
 const getNFT = async (req: RequestNFT, res: Response): Promise<any> => {
   try {
     const { candyMachineId } = req.params;
+
+    const { limit = 10, skip = 0 } = req.query;
 
     const existing = await NFT.findOne({
       candyMachineId
@@ -25,11 +32,18 @@ const getNFT = async (req: RequestNFT, res: Response): Promise<any> => {
         message: 'NFT project has not been sourced yet.'
       });
 
-    const nftMetadata = await NFTItem.find();
+    const nftMetadata = await NFTItem.find(
+      {},
+      {},
+      {
+        skip: Number(skip),
+        limit: Number(limit)
+      }
+    );
 
     const nftMetadataWithAttributes = await Promise.all(
       nftMetadata.map(async (nft) => {
-        const { attributes } = await NFTItemMetadata.findOne({
+        const nftItemMetadata = await NFTItemMetadata.findOne({
           name: nft.name
         });
 
@@ -42,7 +56,7 @@ const getNFT = async (req: RequestNFT, res: Response): Promise<any> => {
           projectName,
           symbol,
           uri,
-          attributes
+          attributes: get(nftItemMetadata, 'attributes', [])
         };
       })
     );
