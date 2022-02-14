@@ -22,10 +22,7 @@ export interface IFlower {
 }
 
 const Flower = new Schema<IFlower>({
-  address: {
-    type: String,
-    unique: true
-  },
+  address: String,
   name: String,
   arweaveURI: String,
   description: String,
