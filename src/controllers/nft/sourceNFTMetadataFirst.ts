@@ -4,12 +4,12 @@ import { StatusCodes } from 'http-status-codes';
 import { get, isEmpty } from 'lodash';
 
 // Models
-import Flower, { IFlower } from '../../model/flower';
+import NFTItemMetadata, { INFTItemMetadata } from '../../model/NFTItemMetadata';
 
 // Utilities
 import { getMints } from '../../utils/get-mints';
 
-const createFlowerObject = async ({ arweaveURI, arweaveData }): Promise<IFlower> => {
+const createFlowerObject = async ({ arweaveURI, arweaveData }): Promise<INFTItemMetadata> => {
   const attributes = get(arweaveData, 'attributes', []);
 
   const creators = get(arweaveData, 'creators', []);
@@ -32,18 +32,18 @@ const createFlowerObject = async ({ arweaveURI, arweaveData }): Promise<IFlower>
 };
 
 interface RequestMetadataFirst extends Request {
-  params: {
+  body: {
     candyMachineId: string;
   };
 }
 
 const sourceNFTMetadataFirst = async (req: RequestMetadataFirst, res: Response): Promise<any> => {
   const connectionURL = process.env.SOLANA_RPC_URL;
-  const { candyMachineId } = req.params;
+  const { candyMachineId } = req.body;
   try {
     const mints = await getMints(candyMachineId, connectionURL);
 
-    const mintedNames: IFlower[] = await Promise.all(
+    const mintedNames: INFTItemMetadata[] = await Promise.all(
       mints
         .filter(
           (mint) =>
@@ -59,7 +59,7 @@ const sourceNFTMetadataFirst = async (req: RequestMetadataFirst, res: Response):
         })
     );
 
-    const createFlowers = await Flower.insertMany(mintedNames);
+    const createFlowers = await NFTItemMetadata.insertMany(mintedNames);
 
     return res.status(StatusCodes.OK).json(createFlowers);
   } catch (error) {

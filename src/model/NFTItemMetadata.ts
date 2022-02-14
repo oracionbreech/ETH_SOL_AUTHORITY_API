@@ -1,27 +1,27 @@
 import mongoose, { Schema } from 'mongoose';
 
-export interface IFlowerAttributes {
+export interface INFTItemMetadataAttributes {
   traitType: string;
   value: string;
 }
 
-export interface IFlowerCreators {
+export interface INFTItemMetadataCreators {
   address: string;
   share: number;
 }
 
-export interface IFlower {
+export interface INFTItemMetadata {
   address: string;
   name: string;
   arweaveURI: string;
   description: string;
   image: string;
-  attributes: IFlowerAttributes[];
-  creators: IFlowerCreators[];
+  attributes: INFTItemMetadataAttributes[];
+  creators: INFTItemMetadataCreators[];
   mintTransaction: string;
 }
 
-const Flower = new Schema<IFlower>({
+const NFTItemMetadata = new Schema<INFTItemMetadata>({
   address: String,
   name: String,
   arweaveURI: String,
@@ -32,6 +32,6 @@ const Flower = new Schema<IFlower>({
   mintTransaction: String
 });
 
-Flower.set('timestamps', true);
+NFTItemMetadata.set('timestamps', true);
 
-export default mongoose.model<IFlower>('Flower', Flower);
+export default mongoose.model<INFTItemMetadata>('NFTItemMetadata', NFTItemMetadata);

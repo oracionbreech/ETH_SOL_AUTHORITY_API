@@ -3,11 +3,15 @@ import axios from 'axios';
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { get } from 'lodash';
+
+// Constants
 import { SOLANA_RPC_CONNECTION } from '../../constants/connection';
-import { IFlowerAttributes } from '../../model/flower';
-import { decodeMetadata, getMetadataKey } from '../../utils/get-meta';
+
+// Model
+import { INFTItemMetadataAttributes } from '../../model/NFTItemMetadata';
 
 // Utilities
+import { decodeMetadata, getMetadataKey } from '../../utils/get-meta';
 import { toPublicKey } from '../../utils/toPublicKey';
 
 interface IRequestGetAllFlowersV2 extends Request {
@@ -31,8 +35,8 @@ const getMintedInfo = async (req: IRequestGetAllFlowersV2, res: Response): Promi
 
     const { data: arweaveURIData } = await axios.get(decodedMetadata.data.uri);
 
-    const attributes: IFlowerAttributes[] = [...get(arweaveURIData, 'attributes', [])].map(
-      (data): IFlowerAttributes => ({
+    const attributes: INFTItemMetadataAttributes[] = [...get(arweaveURIData, 'attributes', [])].map(
+      (data): INFTItemMetadataAttributes => ({
         traitType: get(data, 'trait_type', ''),
         value: get(data, 'value', '')
       })

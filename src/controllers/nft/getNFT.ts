@@ -3,6 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 
 // Models
 import NFT from '../../model/NFT';
+import NFTItem from '../../model/NFTItem';
+import NFTItemMetadata from '../../model/NFTItemMetadata';
 
 interface RequestNFT extends Request {
   params: {
@@ -18,7 +20,34 @@ const getNFT = async (req: RequestNFT, res: Response): Promise<any> => {
       candyMachineId
     });
 
-    return res.status(StatusCodes.OK).json(existing);
+    if (!existing)
+      return res.status(StatusCodes.OK).json({
+        message: 'NFT project has not been sourced yet.'
+      });
+
+    const nftMetadata = await NFTItem.find();
+
+    const nftMetadataWithAttributes = await Promise.all(
+      nftMetadata.map(async (nft) => {
+        const { attributes } = await NFTItemMetadata.findOne({
+          name: nft.name
+        });
+
+        const { candyMachineId, address, projectName, name, symbol, uri } = nft;
+
+        return {
+          address,
+          name,
+          candyMachineId,
+          projectName,
+          symbol,
+          uri,
+          attributes
+        };
+      })
+    );
+
+    return res.status(StatusCodes.OK).json(nftMetadataWithAttributes);
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }

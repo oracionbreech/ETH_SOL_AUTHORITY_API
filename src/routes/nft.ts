@@ -11,6 +11,6 @@ import sourceNFTMetadataFirst from '../controllers/nft/sourceNFTMetadataFirst';
 const NFTRoutes = router
   .post('/', sourceNFT)
   .get('/:candyMachineId', getNFT)
-  .get('/metadata-first/:candyMachineId', sourceNFTMetadataFirst);
+  .post('/metadata-first', sourceNFTMetadataFirst);
 
 export default NFTRoutes;

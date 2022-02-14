@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import Flower from '../../model/flower';
+import Flower from '../../model/NFTItemMetadata';
 
 const getAllFlowers = async (req: Request, res: Response): Promise<any> => {
   try {
