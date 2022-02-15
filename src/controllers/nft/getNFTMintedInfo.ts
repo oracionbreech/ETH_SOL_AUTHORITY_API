@@ -45,7 +45,8 @@ const getNFTMintedInfo = async (req: GetMintedNFTInfoRequest, res: Response): Pr
     return res.status(StatusCodes.OK).json({
       ...decodedMetadata,
       attributes,
-      mintTransaction: mintTransactions.pop()
+      mintTransaction: mintTransactions.pop(),
+      image: get(arweaveURIData, 'image', '')
     });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
