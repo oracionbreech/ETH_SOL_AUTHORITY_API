@@ -33,7 +33,7 @@ const getNFT = async (req: RequestNFT, res: Response): Promise<any> => {
       });
 
     const nftMetadata = await NFTItem.find(
-      {},
+      { candyMachineId: existing.candyMachineId },
       {},
       {
         skip: Number(skip),
