@@ -56,7 +56,8 @@ const getNFT = async (req: RequestNFT, res: Response): Promise<any> => {
           projectName,
           symbol,
           uri,
-          attributes: get(nftItemMetadata, 'attributes', [])
+          attributes: get(nftItemMetadata, 'attributes', []),
+          image: get(nftItemMetadata, 'image', '')
         };
       })
     );
