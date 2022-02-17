@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
+import DiscordRoutes from './discord';
 
 // Routes
 import FlowerRoutes from './flowers';
@@ -19,6 +20,6 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
-router.use('/flowers', FlowerRoutes).use('/nft', NFTRoutes);
+router.use('/flowers', FlowerRoutes).use('/nft', NFTRoutes).use('/discord', DiscordRoutes);
 
 export default router;
