@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 const requestCode = async (req: Request, res: Response): Promise<any> => {
   try {
     return res.status(StatusCodes.OK).json({
-      url: 'https://discord.com/api/oauth2/authorize?client_id=943755436207796224&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord&response_type=code&scope=identify%20guilds',
+      url: 'https://discord.com/api/oauth2/authorize?client_id=944219075142369291&redirect_uri=https%3A%2F%2Feth-verification.netlify.app&response_type=code&scope=guilds%20identify%20guilds.members.read',
       type: 'auth_url'
     });
   } catch (error) {
