@@ -28,7 +28,6 @@
     }
   },
   "dependencies": {
-    "@discordjs/rest": "^0.3.0",
     "@solana/spl-token": "^0.1.8",
     "@solana/web3.js": "^1.32.0",
     "axios": "^0.21.0",
