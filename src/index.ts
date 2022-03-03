@@ -20,7 +20,8 @@ app.use(
     origin: [
       'http://localhost:3000',
       'https://adoring-wilson-eb56c7.netlify.app',
-      'https://eth-verification.netlify.app'
+      'https://eth-verification.netlify.app',
+      'https://holyversenft.com'
     ]
   })
 );
