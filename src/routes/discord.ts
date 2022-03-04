@@ -7,12 +7,7 @@ const router = Router();
 import requestCode from '../controllers/discord/requestCode';
 import requestTokenGrant from '../controllers/discord/requestTokenGrant';
 import getMembers from '../controllers/discord/getMembers';
-import getMembersV2 from '../controllers/discord/getMembersV2';
 
-const DiscordRoutes = router
-  .get('/', requestCode)
-  .get('/roles', requestTokenGrant)
-  .get('/members', getMembers)
-  .get('/v2/members', getMembersV2);
+const DiscordRoutes = router.get('/', requestCode).get('/roles', requestTokenGrant).get('/members', getMembers);
 
 export default DiscordRoutes;

@@ -5,16 +5,20 @@ import { StatusCodes } from 'http-status-codes';
 interface GetMemberInfoRequest extends Request {
   query: {
     token: string;
+    channelId: string;
   };
 }
 
-const getMembers = async (req: GetMemberInfoRequest, res: Response): Promise<any> => {
+const getMembersV2 = async (req: GetMemberInfoRequest, res: Response): Promise<any> => {
   try {
-    const guildMemberInfo = await axios.get('https://discordapp.com/api/users/@me/guilds/894275198231121960/member', {
-      headers: {
-        Authorization: `Bearer ${req.query.token}`
+    const guildMemberInfo = await axios.get(
+      `https://discordapp.com/api/users/@me/guilds/${req.query.channelId}/member`,
+      {
+        headers: {
+          Authorization: `Bearer ${req.query.token}`
+        }
       }
-    });
+    );
 
     return res.status(StatusCodes.OK).json(guildMemberInfo.data);
   } catch (error) {
@@ -22,4 +26,4 @@ const getMembers = async (req: GetMemberInfoRequest, res: Response): Promise<any
   }
 };
 
-export default getMembers;
+export default getMembersV2;
