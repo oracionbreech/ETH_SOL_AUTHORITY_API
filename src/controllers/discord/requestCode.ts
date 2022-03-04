@@ -6,8 +6,8 @@ const requestCode = async (req: Request, res: Response): Promise<any> => {
     return res.status(StatusCodes.OK).json({
       url: `https://discord.com/api/oauth2/authorize?client_id=${String(
         process.env.DISCORD_CLIENT_ID
-      )}&redirect_uri=${String(
-        process.env.DISCORD_AUTH_REDIRECT_URI
+      )}&redirect_uri=${encodeURIComponent(
+        String(process.env.DISCORD_AUTH_REDIRECT_URI)
       )}&response_type=code&scope=identify%20guilds%20guilds.members.read`,
       type: 'auth_url'
     });

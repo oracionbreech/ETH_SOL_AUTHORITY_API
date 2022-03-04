@@ -25,10 +25,10 @@ const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise
       method: 'post',
       url: 'https://discordapp.com/api/oauth2/token',
       headers: {
-        Authorization: `Basic ${String(process.env.DISCORD_CLIENT_ID)}:${String(process.env.DISCORD_CLIENT_SECRET)}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Cookie:
-          '__dcfduid=eb43922e8fbd11ecb8df42010a0a0a67; __sdcfduid=eb43922e8fbd11ecb8df42010a0a0a6798cc2fb1046b5ddb21712d278617b137ddf8fdc941cb85bdc5b6817054fca084'
+        Authorization: `Basic ${btoa(
+          `${String(process.env.DISCORD_CLIENT_ID)}:${String(process.env.DISCORD_CLIENT_SECRET).toString()}`
+        )}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data
     });
