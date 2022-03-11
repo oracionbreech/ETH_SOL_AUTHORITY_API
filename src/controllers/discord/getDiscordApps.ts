@@ -21,9 +21,7 @@ const getDiscordApps = async (req: AddDiscordAppRequest, res: Response): Promise
       });
     }
 
-    const discordApps = await DiscordApp.find({
-      userId
-    });
+    const discordApps = await DiscordApp.find();
 
     return res.status(StatusCodes.OK).json(discordApps);
   } catch (error) {
