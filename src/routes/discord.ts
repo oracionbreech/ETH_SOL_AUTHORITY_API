@@ -8,11 +8,13 @@ import requestCode from '../controllers/discord/requestCode';
 import requestTokenGrant from '../controllers/discord/requestTokenGrant';
 import getMembers from '../controllers/discord/getMembers';
 import addDiscordApp from '../controllers/discord/addDiscordApp';
+import getDiscordApps from '../controllers/discord/getDiscordApps';
 
 const DiscordRoutes = router
   .get('/', requestCode)
   .get('/roles', requestTokenGrant)
   .get('/members', getMembers)
+  .get('/apps', getDiscordApps)
   .post('/add', addDiscordApp);
 
 export default DiscordRoutes;
