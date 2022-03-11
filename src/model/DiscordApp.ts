@@ -4,12 +4,14 @@ export interface IDiscordApp {
   name: string;
   secretKey: string;
   clientId: string;
+  userId: string;
 }
 
 const DiscordApp = new Schema<IDiscordApp>({
   name: String,
   secretKey: String,
-  clientId: String
+  clientId: String,
+  userId: String
 });
 
 DiscordApp.set('timestamps', true);

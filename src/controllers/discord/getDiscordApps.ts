@@ -21,11 +21,11 @@ const getDiscordApps = async (req: AddDiscordAppRequest, res: Response): Promise
       });
     }
 
-    const newDiscordApp = await DiscordApp.create({
-      ...req.body
+    const discordApps = await DiscordApp.find({
+      userId
     });
 
-    return res.status(StatusCodes.OK).json(newDiscordApp);
+    return res.status(StatusCodes.OK).json(discordApps);
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
