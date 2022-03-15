@@ -41,7 +41,7 @@ const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise
       method: 'post',
       url: 'https://discordapp.com/api/oauth2/token',
       headers: {
-        Authorization: `Basic ${btoa(`${String(clientId)}:${String(process.env.DISCORD_CLIENT_SECRET).toString()}`)}`,
+        Authorization: `Basic ${btoa(`${String(clientId)}:${String(findDiscordApp.secretKey).toString()}`)}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data
