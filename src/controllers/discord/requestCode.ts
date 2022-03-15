@@ -1,11 +1,34 @@
-import { Response, Request } from 'express';
+import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import DiscordApp from '../../model/DiscordApp';
 
-const requestCode = async (req: Request, res: Response): Promise<any> => {
+interface CodeRequest {
+  query: {
+    clientId: string;
+  };
+}
+
+const requestCode = async (req: CodeRequest, res: Response): Promise<any> => {
   try {
+    const { clientId } = req.query;
+
+    if (!clientId)
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        message: 'Please attach client ID.'
+      });
+
+    const findDiscordApp = await DiscordApp.findOne({
+      clientId
+    });
+
+    if (!findDiscordApp)
+      return res.status(StatusCodes.NOT_FOUND).json({
+        message: 'Cannot find a discord app.'
+      });
+
     return res.status(StatusCodes.OK).json({
       url: `https://discord.com/api/oauth2/authorize?client_id=${String(
-        process.env.DISCORD_CLIENT_ID
+        findDiscordApp.clientId
       )}&redirect_uri=${encodeURIComponent(
         String(process.env.DISCORD_AUTH_REDIRECT_URI)
       )}&response_type=code&scope=identify%20guilds%20guilds.members.read`,
