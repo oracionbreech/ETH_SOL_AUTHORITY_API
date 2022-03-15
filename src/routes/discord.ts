@@ -11,7 +11,7 @@ import addDiscordApp from '../controllers/discord/addDiscordApp';
 import getDiscordApps from '../controllers/discord/getDiscordApps';
 
 const DiscordRoutes = router
-  .get('/', requestCode)
+  .post('/', requestCode)
   .get('/roles', requestTokenGrant)
   .get('/members', getMembers)
   .get('/apps', getDiscordApps)

@@ -3,18 +3,19 @@ import { StatusCodes } from 'http-status-codes';
 import DiscordApp from '../../model/DiscordApp';
 
 interface CodeRequest {
-  query: {
+  body: {
     clientId: string;
+    redirectURI: string;
   };
 }
 
 const requestCode = async (req: CodeRequest, res: Response): Promise<any> => {
   try {
-    const { clientId } = req.query;
+    const { clientId, redirectURI } = req.body;
 
-    if (!clientId)
+    if (!clientId || !redirectURI)
       return res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Please attach client ID.'
+        message: 'Please attach client ID or redirect uri.'
       });
 
     const findDiscordApp = await DiscordApp.findOne({
@@ -30,7 +31,7 @@ const requestCode = async (req: CodeRequest, res: Response): Promise<any> => {
       url: `https://discord.com/api/oauth2/authorize?client_id=${String(
         findDiscordApp.clientId
       )}&redirect_uri=${encodeURIComponent(
-        String(process.env.DISCORD_AUTH_REDIRECT_URI)
+        String(redirectURI)
       )}&response_type=code&scope=identify%20guilds%20guilds.members.read`,
       type: 'auth_url'
     });
