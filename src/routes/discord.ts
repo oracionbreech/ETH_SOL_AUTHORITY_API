@@ -9,12 +9,14 @@ import requestTokenGrant from '../controllers/discord/requestTokenGrant';
 import getMembers from '../controllers/discord/getMembers';
 import addDiscordApp from '../controllers/discord/addDiscordApp';
 import getDiscordApps from '../controllers/discord/getDiscordApps';
+import addRole from '../controllers/discord/addRole';
 
 const DiscordRoutes = router
   .post('/', requestCode)
   .post('/grant', requestTokenGrant)
   .get('/whitelist', getMembers)
   .get('/apps', getDiscordApps)
-  .post('/add', addDiscordApp);
+  .post('/add', addDiscordApp)
+  .post('/add-role', addRole);
 
 export default DiscordRoutes;
