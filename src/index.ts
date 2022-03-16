@@ -17,12 +17,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      'http://localhost:3000',
-      'https://adoring-wilson-eb56c7.netlify.app',
-      'https://eth-verification.netlify.app',
-      'https://holyversenft.com'
-    ]
+    origin: process.env.CORS_ALLOW.split(',')
   })
 );
 app.use(express.json());
