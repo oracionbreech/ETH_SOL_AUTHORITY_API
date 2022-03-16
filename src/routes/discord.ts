@@ -12,8 +12,8 @@ import getDiscordApps from '../controllers/discord/getDiscordApps';
 
 const DiscordRoutes = router
   .post('/', requestCode)
-  .get('/roles', requestTokenGrant)
-  .get('/members', getMembers)
+  .post('/grant', requestTokenGrant)
+  .get('/whitelist', getMembers)
   .get('/apps', getDiscordApps)
   .post('/add', addDiscordApp);
 

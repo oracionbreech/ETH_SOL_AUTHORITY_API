@@ -5,17 +5,18 @@ import qs from 'qs';
 import DiscordApp from '../../model/DiscordApp';
 
 interface RequestTokenGrant extends Request {
-  query: {
+  body: {
     code: string;
     clientId: string;
+    redirectURI: string;
   };
 }
 
 const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise<any> => {
   try {
-    const { code, clientId } = req.query;
+    const { code, clientId, redirectURI } = req.body;
 
-    if (!code || !clientId)
+    if (!code || !clientId || !redirectURI)
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Invalid code or client ID.'
       });
@@ -32,7 +33,7 @@ const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise
     const data = qs.stringify({
       code,
       grant_type: 'authorization_code',
-      redirect_uri: String(process.env.DISCORD_AUTH_REDIRECT_URI),
+      redirect_uri: String(redirectURI),
       client_secret: String(findDiscordApp.secretKey),
       client_id: String(findDiscordApp.clientId)
     });
