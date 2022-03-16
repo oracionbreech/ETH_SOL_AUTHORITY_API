@@ -5,6 +5,7 @@ export interface IDiscordApp {
   secretKey: string;
   clientId: string;
   userId: string;
+  whitelisted: any;
 }
 
 const DiscordApp = new Schema<IDiscordApp>({
