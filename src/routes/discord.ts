@@ -10,6 +10,7 @@ import getMembers from '../controllers/discord/getMembers';
 import addDiscordApp from '../controllers/discord/addDiscordApp';
 import getDiscordApps from '../controllers/discord/getDiscordApps';
 import addRole from '../controllers/discord/addRole';
+import getRolesByApp from '../controllers/discord/getRolesByApp';
 
 const DiscordRoutes = router
   .post('/', requestCode)
@@ -17,6 +18,7 @@ const DiscordRoutes = router
   .get('/whitelist', getMembers)
   .get('/apps', getDiscordApps)
   .post('/add', addDiscordApp)
-  .post('/add-role', addRole);
+  .post('/add-role', addRole)
+  .get('/app', getRolesByApp);
 
 export default DiscordRoutes;
