@@ -50,7 +50,9 @@ const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise
 
     return res.status(StatusCodes.OK).json(response.data);
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(Object.values(error));
+    console.log(error);
+
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
 
