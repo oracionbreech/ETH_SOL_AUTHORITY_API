@@ -56,6 +56,7 @@
     "supertest": "^6.1.6",
     "swagger-jsdoc": "6.0.0",
     "swagger-ui-express": "^4.1.6",
+    "twitter-login": "^1.1.5",
     "typescript": "^4.4.3",
     "uuid": "^8.3.1",
     "yup": "^0.32.9"
