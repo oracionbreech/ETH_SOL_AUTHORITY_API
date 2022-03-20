@@ -42,7 +42,9 @@ const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise
       method: 'post',
       url: 'https://discordapp.com/api/oauth2/token',
       headers: {
-        Authorization: `Basic ${btoa(`${String(clientId)}:${String(findDiscordApp.secretKey).toString()}`)}`,
+        Authorization: `Basic ${Buffer.from(
+          `${String(clientId)}:${String(findDiscordApp.secretKey).toString()}`
+        ).toString('base64')}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: data
@@ -50,8 +52,6 @@ const requestTokenGrant = async (req: RequestTokenGrant, res: Response): Promise
 
     return res.status(StatusCodes.OK).json(response.data);
   } catch (error) {
-    console.log(error);
-
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
