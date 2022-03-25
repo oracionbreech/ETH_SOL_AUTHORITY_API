@@ -34,19 +34,19 @@ const authCallback = async (req: AuthCallbackRequest, res: Response): Promise<an
     });
 
     if (findUser) {
-      const updatedUser = await TwitterUser.updateOne(
+      const updatedUser = await TwitterUser.findOneAndUpdate(
         {
           userId: userInfo.userId
         },
         userInfo
       );
 
-      return res.status(StatusCodes.OK).json(updatedUser);
+      return res.status(StatusCodes.OK).redirect(`${process.env.REACT_APP_BASE_URL}?token=${updatedUser.userToken}`);
     }
 
-    const user = await TwitterUser.create(userInfo);
+    await TwitterUser.create(userInfo);
 
-    return res.status(StatusCodes.OK).json(user);
+    return res.status(StatusCodes.OK).redirect(`${process.env.REACT_APP_BASE_URL}`);
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
