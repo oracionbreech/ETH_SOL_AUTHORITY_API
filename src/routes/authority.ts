@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { config } from 'dotenv';
-import getRequirements from '../controllers/authority/initiateRequirements';
-import initRequirements from '../controllers/authority/getRequirements';
+import getRequirements from '../controllers/authority/getRequirements';
+import initRequirements from '../controllers/authority/initRequirements';
 import updateRequirements from '../controllers/authority/updateRequirements';
 config();
 const router = Router();

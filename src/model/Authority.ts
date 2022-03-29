@@ -5,13 +5,17 @@ export interface IAuthority {
   metamaskEnabled: boolean;
   discordEnabled: boolean;
   solanaEnabled: boolean;
+  ethBalance: number;
+  solBalance: number;
 }
 
 const Authority = new Schema<IAuthority>({
   discordEnabled: Boolean,
   metamaskEnabled: Boolean,
   solanaEnabled: Boolean,
-  twitterEnabled: Boolean
+  twitterEnabled: Boolean,
+  ethBalance: Number,
+  solBalance: Number
 });
 
 Authority.set('timestamps', true);

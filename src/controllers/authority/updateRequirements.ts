@@ -2,7 +2,14 @@ import { Response, Request } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import Authority from '../../model/Authority';
 
-const RequirementsValidFields = ['twitterEnabled', 'metamaskEnabled', 'discordEnabled', 'solanaEnabled'];
+const RequirementsValidFields = [
+  'twitterEnabled',
+  'metamaskEnabled',
+  'discordEnabled',
+  'solanaEnabled',
+  'ethBalance',
+  'solBalance'
+];
 
 interface GetRequirementsRequest extends Request {
   body: {
