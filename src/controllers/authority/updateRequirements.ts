@@ -26,11 +26,13 @@ const updateRequirements = async (req: GetRequirementsRequest, res: Response): P
 
     const requirements = await Authority.find();
 
-    const updateRequirements = await Authority.findByIdAndUpdate(requirements.pop().id, {
+    await Authority.findByIdAndUpdate(requirements.pop().id, {
       ...fields
     });
 
-    return res.status(StatusCodes.OK).json(updateRequirements);
+    const newRequirements = await Authority.find();
+
+    return res.status(StatusCodes.OK).json(newRequirements.pop());
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
