@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
+import AuthorityRoutes from './authority';
 
 // Routes
 import DiscordRoutes from './discord';
@@ -20,6 +21,10 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
-router.use('/discord', DiscordRoutes).use('/user', UserRoutes).use('/twitter', TwitterRoutes);
+router
+  .use('/discord', DiscordRoutes)
+  .use('/user', UserRoutes)
+  .use('/twitter', TwitterRoutes)
+  .use('/authority', AuthorityRoutes);
 
 export default router;
