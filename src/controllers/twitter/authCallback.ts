@@ -41,12 +41,14 @@ const authCallback = async (req: AuthCallbackRequest, res: Response): Promise<an
         userInfo
       );
 
-      return res.status(StatusCodes.OK).redirect(`${process.env.REACT_APP_BASE_URL}?token=${updatedUser.userToken}`);
+      return res
+        .status(StatusCodes.OK)
+        .redirect(`${process.env.REACT_APP_BASE_URL}/whitelist/?token=${updatedUser.userToken}`);
     }
 
     await TwitterUser.create(userInfo);
 
-    return res.status(StatusCodes.OK).redirect(`${process.env.REACT_APP_BASE_URL}`);
+    return res.status(StatusCodes.OK).redirect(`${process.env.REACT_APP_BASE_URL}/whitelist/`);
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
