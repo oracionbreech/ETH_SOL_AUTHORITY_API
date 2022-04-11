@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export interface IWhitelisted {
   metamask: string;
@@ -11,7 +11,7 @@ const Whitelisted = new Schema<IWhitelisted>({
   metamask: String,
   solana: String,
   twitter: String,
-  ipsUsed: Types.Array
+  ipsUsed: []
 });
 
 Whitelisted.set('timestamps', true);
