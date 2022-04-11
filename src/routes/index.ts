@@ -6,6 +6,7 @@ import AuthorityRoutes from './authority';
 import DiscordRoutes from './discord';
 import TwitterRoutes from './twitter';
 import UserRoutes from './user';
+import WhitelistRoutes from './whitelist';
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router
   .use('/discord', DiscordRoutes)
   .use('/user', UserRoutes)
   .use('/twitter', TwitterRoutes)
-  .use('/authority', AuthorityRoutes);
+  .use('/authority', AuthorityRoutes)
+  .use('/whitelist', WhitelistRoutes);
 
 export default router;

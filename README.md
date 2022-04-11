@@ -1,4 +1,4 @@
-# NOTED API
+# ETHEREUM/SOLANA AUTHORITY
 
 ## Environment Config
 
