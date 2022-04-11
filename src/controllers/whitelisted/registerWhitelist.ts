@@ -13,6 +13,8 @@ const registerWhitelist = async (req: RegisterWhitelistRequest, res: Response): 
   try {
     const { metamask, solana, twitter } = req.body;
 
+    const ip = req.ip;
+
     if ((isEmpty(metamask) || isEmpty(solana)) && isEmpty(twitter))
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Invalid data sent.'
@@ -23,10 +25,16 @@ const registerWhitelist = async (req: RegisterWhitelistRequest, res: Response): 
     });
 
     if (findExistingWhitelist) {
-      return res.status(StatusCodes.OK).json({ ...findExistingWhitelist, existing: true });
+      const updateIpUsed = await Whitelisted.findByIdAndUpdate(findExistingWhitelist.id, {
+        $set: {
+          ipsUsed: [...findExistingWhitelist.ipsUsed.filter((whereIp: string) => whereIp !== ip), ip]
+        }
+      });
+
+      return res.status(StatusCodes.OK).json({ ...updateIpUsed, existing: true });
     }
 
-    const whitelist = await Whitelisted.create({ metamask, solana, twitter });
+    const whitelist = await Whitelisted.create({ metamask, solana, twitter, ipsUsed: [ip] });
 
     return res.status(StatusCodes.OK).json({ ...whitelist, existing: false });
   } catch (error) {
