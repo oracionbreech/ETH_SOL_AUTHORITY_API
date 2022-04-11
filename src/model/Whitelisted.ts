@@ -14,4 +14,4 @@ const Whitelisted = new Schema<IWhitelisted>({
 
 Whitelisted.set('timestamps', true);
 
-export default mongoose.model<IWhitelisted>('Twitter', Whitelisted);
+export default mongoose.model<IWhitelisted>('Whitelist', Whitelisted);
