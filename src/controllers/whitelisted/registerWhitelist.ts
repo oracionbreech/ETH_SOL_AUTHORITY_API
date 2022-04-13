@@ -31,12 +31,12 @@ const registerWhitelist = async (req: RegisterWhitelistRequest, res: Response): 
         }
       });
 
-      return res.status(StatusCodes.OK).json({ ...updateIpUsed, existing: true });
+      return res.status(StatusCodes.OK).json({ ...updateIpUsed.toObject(), existing: true });
     }
 
     const whitelist = await Whitelisted.create({ metamask, solana, twitter, ipsUsed: [ip] });
 
-    return res.status(StatusCodes.OK).json({ ...whitelist, existing: false });
+    return res.status(StatusCodes.OK).json({ ...whitelist.toObject(), existing: false });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
