@@ -24,6 +24,7 @@ const authCallback = async (req: AuthCallbackRequest, res: Response): Promise<an
 
     // call function passing Auth and Token Secret
     const userInfo = await twitter.callback(oAuthParam, twitterSecret.tokenSecret);
+
     // Delete the tokenSecret securely
     await Twitter.deleteOne({
       tokenSecret: twitterSecret.tokenSecret
