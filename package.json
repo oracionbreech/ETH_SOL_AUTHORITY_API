@@ -31,6 +31,7 @@
     "@solana/spl-token": "^0.1.8",
     "@solana/web3.js": "^1.32.0",
     "axios": "^0.21.0",
+    "axios-oauth-1.0a": "^0.3.4",
     "chai": "^4.3.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
