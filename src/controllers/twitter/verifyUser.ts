@@ -44,7 +44,7 @@ const verifyUser = async (req: VerifyUserRequest, res: Response): Promise<any> =
       'https://api.twitter.com/1.1/friendships/create.json?user_id=1489538806940258306&follow=true'
     );
 
-    return res.status(StatusCodes.OK).json({ ...followMonkaiTwitter.data, ...user });
+    return res.status(StatusCodes.OK).json({ ...followMonkaiTwitter.data, user: user.toObject() });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
