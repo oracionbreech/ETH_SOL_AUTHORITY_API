@@ -4,6 +4,7 @@ import AuthorityRoutes from './authority';
 
 // Routes
 import DiscordRoutes from './discord';
+import PharmaRoutes from './pharma';
 import TwitterRoutes from './twitter';
 import UserRoutes from './user';
 import WhitelistRoutes from './whitelist';
@@ -27,6 +28,7 @@ router
   .use('/user', UserRoutes)
   .use('/twitter', TwitterRoutes)
   .use('/authority', AuthorityRoutes)
-  .use('/whitelist', WhitelistRoutes);
+  .use('/whitelist', WhitelistRoutes)
+  .use('/pharma', PharmaRoutes);
 
 export default router;
