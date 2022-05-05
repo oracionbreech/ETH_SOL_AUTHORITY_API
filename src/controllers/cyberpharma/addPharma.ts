@@ -17,6 +17,8 @@ const addPharma = async (req: AddPharmaRequest, res: Response): Promise<any> => 
   try {
     const { address, email, signedMessage } = req.body;
 
+    const ip = req.ip;
+
     if (isEmpty(address) || isEmpty(email) || isEmpty(signedMessage)) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         message: 'Invalid data sent.'
@@ -47,7 +49,8 @@ const addPharma = async (req: AddPharmaRequest, res: Response): Promise<any> => 
     }
 
     const pharma = await Pharma.create({
-      ...req.body
+      ...req.body,
+      ipsUsed: [ip]
     });
 
     return res.status(StatusCodes.OK).json(pharma);
