@@ -44,7 +44,7 @@ const authCallback = async (req: AuthCallbackRequest, res: Response): Promise<an
 
       return res
         .status(StatusCodes.OK)
-        .redirect(`${process.env.REACT_APP_BASE_URL}/whitelist/?token=${updatedUser.userToken}`);
+        .redirect(`${process.env.REACT_APP_BASE_URL}/redirect/?token=${updatedUser.userToken}`);
     }
 
     await TwitterUser.create(userInfo);
