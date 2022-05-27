@@ -20,7 +20,7 @@ const requestAccessToken = async (req: RequestAccessToken, res: Response): Promi
       code: req.body.code,
       grant_type: 'authorization_code',
       client_id: `${String(process.env.TWITTER_OAUTH2_CLIENT_ID)}`,
-      redirect_uri: `${process.env.REACT_APP_BASE_URL}`,
+      redirect_uri: `${process.env.REACT_APP_BASE_URL}/redirect`,
       code_verifier: 'challenge'
     });
 
