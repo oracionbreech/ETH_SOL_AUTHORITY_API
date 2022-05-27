@@ -20,7 +20,7 @@ const requestAccessToken = async (req: RequestAccessToken, res: Response): Promi
       code: req.body.code,
       grant_type: 'authorization_code',
       client_id: `${String(process.env.TWITTER_OAUTH2_CLIENT_ID)}`,
-      redirect_uri: 'https://www.example.com',
+      redirect_uri: `${process.env.REACT_APP_BASE_URL}`,
       code_verifier: 'challenge'
     });
 
@@ -33,15 +33,19 @@ const requestAccessToken = async (req: RequestAccessToken, res: Response): Promi
             process.env.TWITTER_OAUTH2_CLIENT_SECRET
           ).toString()}`
         ).toString('base64')}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Cookie:
-          'guest_id=v1%3A164795006369164092; guest_id_ads=v1%3A164795006369164092; guest_id_marketing=v1%3A164795006369164092; personalization_id="v1_tX8ZpbOgeWlxJRAfwYStJQ=="'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       data
     });
 
     return res.status(StatusCodes.OK).json(userAccessToken);
   } catch (error) {
+    if (error.response && error.response.data && error.response.data.error_description) {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: error.response.data.error_description
+      });
+    }
+
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 };
