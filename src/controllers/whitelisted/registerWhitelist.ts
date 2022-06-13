@@ -4,7 +4,6 @@ import { isEmpty } from 'lodash';
 
 // Model
 import Whitelisted, { IWhitelisted } from '../../model/Whitelisted';
-import TwitterUser from '../../model/TwitterUser';
 
 interface RegisterWhitelistRequest extends Request {
   body: IWhitelisted;
@@ -35,12 +34,12 @@ const registerWhitelist = async (req: RegisterWhitelistRequest, res: Response): 
       return res.status(StatusCodes.OK).json({ ...updateIpUsed.toObject(), existing: true });
     }
 
-    const twitterUser = await TwitterUser.findOne({
-      userId: twitter
-    });
+    // const twitterUser = await TwitterUser.findOne({
+    //   userId: twitter
+    // });
 
-    if (!twitterUser)
-      return res.status(StatusCodes.BAD_REQUEST).json({ message: "Sorry, we can't find a record of you." });
+    // if (!twitterUser)
+    //   return res.status(StatusCodes.BAD_REQUEST).json({ message: "Sorry, we can't find a record of you." });
 
     const whitelist = await Whitelisted.create({ metamask, solana, twitter, ipsUsed: [ip] });
 
