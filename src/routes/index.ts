@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { Request, Response } from 'express';
-import AuthorityRoutes from './authority';
 
 // Routes
 import DiscordRoutes from './discord';
@@ -9,6 +8,8 @@ import TwitterRoutes from './twitter';
 import TwitterRoutesV2 from './twitterV2';
 import UserRoutes from './user';
 import WhitelistRoutes from './whitelist';
+import AuctionRoutes from './auction';
+import AuthorityRoutes from './authority';
 
 const router = Router();
 
@@ -31,6 +32,7 @@ router
   .use('/twitterV2', TwitterRoutesV2)
   .use('/authority', AuthorityRoutes)
   .use('/whitelist', WhitelistRoutes)
-  .use('/pharma', PharmaRoutes);
+  .use('/pharma', PharmaRoutes)
+  .use('/auction', AuctionRoutes);
 
 export default router;
