@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 export interface IAuction {
   owner: string;
+  auction_id: string;
   nft_mint: string;
   token_mint: string;
   auctionTitle: string;
@@ -23,7 +24,8 @@ const Auction = new Schema<IAuction>({
   biddercap: String,
   startTime: String,
   endTime: String,
-  amount: String
+  amount: String,
+  auction_id: String
 });
 
 Auction.set('timestamps', true);
