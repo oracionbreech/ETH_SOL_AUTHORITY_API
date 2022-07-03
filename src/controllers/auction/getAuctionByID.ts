@@ -13,7 +13,9 @@ const getAuctionByID = async (req: Request, res: Response): Promise<any> => {
         message: 'Please specify id'
       });
 
-    const auction = await Auction.findOne({});
+    const auction = await Auction.findOne({
+      auction_id: id
+    });
 
     if (!auction)
       return res.status(StatusCodes.NOT_FOUND).json({
