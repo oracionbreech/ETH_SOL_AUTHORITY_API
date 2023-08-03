@@ -9,8 +9,12 @@
   "tslint.enable": true,
   "tslint.jsEnable": true,
   "tslint.autoFixOnSave": true,
-  "window.zoomLevel": 3,
-  "tslint.exclude": ["test/*", "node_modules", "dist"],
+  "window.zoomLevel": -1,
+  "tslint.exclude": [
+    "test/*",
+    "node_modules",
+    "dist"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.formatOnSave": true
 }
